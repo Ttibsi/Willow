@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 project(willow-test LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
