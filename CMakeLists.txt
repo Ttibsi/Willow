@@ -14,3 +14,5 @@ add_compile_options(-Wimplicit-fallthrough)
 add_subdirectory(src/willow)
 add_executable(willow_test src/main.cpp)
 target_link_libraries(willow_test PRIVATE willow)
+
+install(DIRECTORY src/willow DESTINATION willow) 
