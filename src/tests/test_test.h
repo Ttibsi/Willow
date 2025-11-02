@@ -1,6 +1,6 @@
 #include "willow/test.h"
 
-constexpr inline auto test_toString() -> int {
+constexpr auto test_toString([[maybe_unused]] Willow::Test* test) -> int {
     if (Willow::toString(Willow::Status::None) != "None") {
         return 1;
     }
@@ -16,8 +16,14 @@ constexpr inline auto test_toString() -> int {
     return 0;
 }
 
-constexpr inline auto test_Test_Operator() -> int {
-    Willow::Test t = {"t", [] { return 42; }};
+namespace FixtureFuncs {
+    constexpr auto op_bracket([[maybe_unused]] Willow::Test* t) -> int {
+        return 42;
+    }
+}  // namespace FixtureFuncs
+
+constexpr auto test_Test_Operator([[maybe_unused]] Willow::Test* test) -> int {
+    Willow::Test t = {"t", FixtureFuncs::op_bracket};
     t();
 
     return !(t.retcode == 42);

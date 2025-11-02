@@ -2,15 +2,15 @@
 #include "willow/willow.h"
 
 namespace FixtureFuncs {
-    constexpr auto pass() -> int {
+    constexpr auto pass([[maybe_unused]] Willow::Test* t) -> int {
         return 0;
     }
-    constexpr auto fail() -> int {
+    constexpr auto fail([[maybe_unused]] Willow::Test* t) -> int {
         return 1;
     }
 };  // namespace FixtureFuncs
 
-constexpr inline auto test_runTests() -> int {
+constexpr auto test_runTests([[maybe_unused]] Willow::Test* test) -> int {
     SilentReporter r = {};
     int ret = Willow::runTests(
         {{"pass", FixtureFuncs::pass},

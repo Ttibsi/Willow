@@ -4,7 +4,9 @@
 #include <string>
 
 namespace Willow {
-    using TestFn = int (*)();
+    // forward declaration for type alias
+    struct Test;
+    using TestFn = int (*)(Test*);
 
     enum class Status { None, Pass, Fail, Skip };
 
@@ -31,13 +33,14 @@ namespace Willow {
         std::string name;
         TestFn fn;
         int retcode = 0;
+        std::optional<std::string> msg = std::nullopt;
         Status status = Status::None;
 
         Test(std::string given_name, TestFn f) : name {given_name}, fn {f} {}
         Test(std::string given_name, TestFn f, Status st)
             : name {given_name}, fn {f}, status {st} {}
 
-        auto operator()() -> void { retcode = fn(); }
+        auto operator()() -> void { retcode = fn(this); }
     };
 };  // namespace Willow
 

@@ -43,18 +43,26 @@ namespace Willow {
             const std::size_t status_len = toString(test.status).size();
             const std::string ansi = highlight(test.status);
 
-            if (test.status == Status::Fail) {
-                results.fail++;
-            } else if (test.status == Status::Skip) {
-                results.skip++;
-            } else {
-                results.pass++;
-            }
-
             std::println(
                 "{}{}{}{}\x1b[0m", test.name,
                 std::string(screen_len - (name_len + status_len), '.'), ansi,
                 toString(test.status));
+
+            if (test.status == Status::Fail) {
+                results.fail++;
+                std::println("\x1b[31m\tReturn code: {}\x1b[0m", test.retcode);
+                if (test.msg.has_value()) {
+                    std::println("\x1b[31m\t{}\x1b[0m", test.msg.value());
+                }
+
+            } else if (test.status == Status::Skip) {
+                results.skip++;
+                if (test.msg.has_value()) {
+                    std::println("\x1b[33m\t{}\x1b[0m", test.msg.value());
+                }
+            } else {
+                results.pass++;
+            }
         }
 
         inline constexpr auto cleanup() -> void {
@@ -67,7 +75,7 @@ namespace Willow {
                 case Status::Pass: {
                     std::string msg = "All tests passed!";
                     std::println(
-                        "\x1b[32m{} {} {}\x1b[0m", make_bar(screen_len - msg.size()), msg,
+                        "\x1b[32m{} {} {}\x1b[0m", make_bar((screen_len - msg.size()) + 1), msg,
                         make_bar(screen_len - msg.size()));
                     break;
                 }
