@@ -17,9 +17,9 @@ fetchcontent_makeavailable(rawterm)
 ```
 
 # Example
-A minimal usage looks like the below code. However, willow dogfoods itself, 
+A minimal usage looks like the below code. However, willow dogfoods itself,
 meaning that it's tested with itself. To see more usage, see the `src/main.cpp`
-file -- anything in the `src/` directory are the tests for this project, 
+file -- anything in the `src/` directory are the tests for this project,
 `src/willow` is the source code.
 
 ```cpp
@@ -44,7 +44,7 @@ auto main() -> int {
     // are available
     Willow::DefaultReporter reporter = {};
 
-    // Your executable will exit with a return code displaying the number of 
+    // Your executable will exit with a return code displaying the number of
     // failed tests
     return Willow::runTests({
         // Each test function is given a name to display as output. you can also
