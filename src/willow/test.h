@@ -36,8 +36,9 @@ namespace Willow {
         std::optional<std::string> msg = std::nullopt;
         Status status = Status::None;
 
-        Test(std::string given_name, TestFn f) : name {given_name}, fn {f} {}
-        Test(std::string given_name, TestFn f, Status st)
+        constexpr Test() : name(""), fn(NULL) {}
+        constexpr Test(std::string given_name, TestFn f) : name {given_name}, fn {f} {}
+        constexpr Test(std::string given_name, TestFn f, Status st)
             : name {given_name}, fn {f}, status {st} {}
 
         auto operator()() -> void { retcode = fn(this); }

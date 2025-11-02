@@ -34,7 +34,7 @@ namespace Willow {
             int skip = 0;
         };
 
-        const int screen_len = 80;
+        const std::size_t screen_len = 80;
         Results results = {};
 
        public:
