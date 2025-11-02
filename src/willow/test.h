@@ -10,7 +10,7 @@ namespace Willow {
 
     enum class Status { None, Pass, Fail, Skip };
 
-    inline auto toString(const Status& st) -> std::string {
+    constexpr auto toString(const Status& st) -> std::string {
         switch (st) {
             case Status::None:
                 return "None";
