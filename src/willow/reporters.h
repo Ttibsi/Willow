@@ -8,9 +8,9 @@
 namespace Willow {
     class Reporter {
        public:
-        virtual auto print(const Test& test) -> void = 0;
-        virtual auto cleanup() -> void = 0;
-        virtual ~Reporter() = default;
+        virtual constexpr auto print(const Test& test) -> void = 0;
+        virtual constexpr auto cleanup() -> void = 0;
+        virtual constexpr ~Reporter() = default;
     };
 
     class DefaultReporter : public Reporter {
@@ -18,17 +18,16 @@ namespace Willow {
         int test_count = 0;
 
        public:
-        inline DefaultReporter() {};
-
-        inline auto print(const Test& test) -> void {
+        inline constexpr auto print(const Test& test) -> void {
             std::println("[{}] {}\t{}", ++test_count, test.name, toString(test.status));
         }
 
-        inline auto cleanup() -> void {}
+        inline constexpr auto cleanup() -> void {}
     };
 
     // A reporter that displays based on the output from pre-commit
     class PreCommitReporter : public Reporter {
+       protected:
         struct Results {
             int pass = 0;
             int fail = 0;
@@ -39,9 +38,9 @@ namespace Willow {
         Results results = {};
 
        public:
-        inline auto print(const Test& test) -> void {
-            const int name_len = test.name.size();
-            const int status_len = toString(test.status).size();
+        inline constexpr auto print(const Test& test) -> void {
+            const std::size_t name_len = test.name.size();
+            const std::size_t status_len = toString(test.status).size();
             const std::string ansi = highlight(test.status);
 
             if (test.status == Status::Fail) {
@@ -58,7 +57,7 @@ namespace Willow {
                 toString(test.status));
         }
 
-        inline auto cleanup() -> void {
+        inline constexpr auto cleanup() -> void {
             Status final =
                 (results.fail ? Status::Fail : (results.skip ? Status::Skip : Status::Pass));
 

@@ -1,25 +1,20 @@
+#include "tests/test_reporters.h"
+#include "tests/test_test.h"
+#include "tests/test_willow.h"
 #include "willow/reporters.h"
 #include "willow/willow.h"
 
-auto test_pass() -> int {
-    return 0;
-}
-
-auto test_fail() -> int {
-    return 1;
-}
-
-auto test_skip() -> int {
-    return 1;
-}
-
 auto main() -> int {
-    Willow::PreCommitReporter r = {};
-    return Willow::run_tests(
+    Willow::PreCommitReporter reporter = {};
+
+    return Willow::runTests(
         {
-            {"Pass", test_pass},
-            {"Fail", test_fail},
-            {"Skipped", test_skip, Willow::Status::Skip},
+            {"test_runTests", test_runTests},
+            {"test_toString", test_toString},
+            {"test_Test_Operator()", test_Test_Operator},
+            {"PreCommitReporter::print", TestPreCommitReporter::test_print},
+            {"PreCommitReporter::cleanup", TestPreCommitReporter::test_cleanup},
+            {"PreCommitReporter::highlight", TestPreCommitReporter::test_highlight},
         },
-        r);
+        reporter);
 }
