@@ -30,10 +30,6 @@ namespace Willow {
         }));
     }
 
-    constexpr auto alert(Test* test, std::string message) -> void {
-        test->msg = message;
-    }
-
 }  // namespace Willow
 
 #endif  // WILLOW_H

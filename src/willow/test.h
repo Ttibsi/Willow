@@ -42,6 +42,8 @@ namespace Willow {
             : name {given_name}, fn {f}, status {st} {}
 
         auto operator()() -> void { retcode = fn(this); }
+
+        constexpr auto alert(std::string message) -> void { msg = message; }
     };
 };  // namespace Willow
 

@@ -28,3 +28,13 @@ constexpr auto test_Test_Operator([[maybe_unused]] Willow::Test* test) -> int {
 
     return !(t.retcode == 42);
 }
+
+constexpr auto test_Test_alert([[maybe_unused]] Willow::Test* test) -> int {
+    Willow::Test t {};
+    t.alert("fail");
+
+    if (t.msg.has_value() && t.msg.value() == "fail") {
+        return 0;
+    }
+    return 1;
+}
