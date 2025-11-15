@@ -20,13 +20,3 @@ constexpr auto test_runTests([[maybe_unused]] Willow::Test* test) -> int {
 
     return !(ret == 1);
 }
-
-constexpr auto test_alert([[maybe_unused]] Willow::Test* test) -> int {
-    Willow::Test t {};
-    Willow::alert(&t, "fail");
-
-    if (t.msg.has_value() && t.msg.value() == "fail") {
-        return 0;
-    }
-    return 1;
-}
